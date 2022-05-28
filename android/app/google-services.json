@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "588108622625",
+    "project_id": "ezyo-326706",
+    "storage_bucket": "ezyo-326706.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588108622625:android:64c82d3c2a9839e5882c60",
+        "android_client_info": {
+          "package_name": "com.createq8.ezyo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588108622625-pbk2sihur742el872avgtj29eko0h2m6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.createq8.ezyo",
+            "certificate_hash": "c1a952471b634b55c3d0ee1270e11a95ff37d1b9"
+          }
+        },
+        {
+          "client_id": "588108622625-gthpb9f7lbo6bcg9dshlncn091bskl70.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIiUaVz5cjk4QX69upLUf_OBoAqGkMruI"
+
+
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588108622625-gthpb9f7lbo6bcg9dshlncn091bskl70.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "588108622625-mbfmrq5nl74jgilqt550psnh4hlt2nau.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.createq8.ezyo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

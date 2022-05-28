@@ -1,0 +1,20 @@
+import 'package:flutter/material.dart';
+
+const Color primaryColor = Color(0xffFF8262);
+const Color buttonColor = Color(0xffFF8262);
+const Color backgroundColor = Color(0xFFF5F5F5);
+final Color whiteColor = Colors.white;
+final Color greyColor = Color(0xFF707070);
+final Color textFieldBorderColor = Color(0xFF707070).withOpacity(0.15);
+const Color textFieldInsideColor = Color(0xffF5F5F5);
+const Color textColorWhite = Colors.white;
+final Color textColorGrey = Color(0xff000000).withOpacity(0.5);
+const Color fbColor = Color(0xFF3B5998);
+const Color googleColor = Color(0xFFEA4335);
+const Color cancelledDeliveryColor = Color(0xFFDC1717);
+const Color outForDeliveryColor = Color(0xFFBFB41C);
+const Color deliveredColor = Color(0xFF07A450);
+const Color paidColor = Colors.blue;
+const Color preparingColor = Color(0xFF545454);
+const Color blackColor = Colors.black;
+final Color checkBoxBorderColor = Color(0xffffffff).withOpacity(0.31);
