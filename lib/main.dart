@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:eraser/eraser.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:ezyo/Config/Colors.dart';
@@ -82,8 +84,10 @@ void main() async{
   if (Platform.isAndroid) {
     AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
   }
-
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(MyApp());
+  Eraser.clearAllAppNotifications();
 }
 
 
@@ -124,7 +128,13 @@ String constructFCMPayload(String token) {
   });
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.resumed) {
+      Eraser.clearAllAppNotifications();
+    }
+  }
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey(debugLabel: "Main Navigator");
 
   String messageTitle = "Empty";
@@ -133,6 +143,7 @@ class _MyAppState extends State<MyApp> {
 
 
    Locale _local;
+
   void setLocale(Locale locale) {
     setState(() {
       _local = locale;
@@ -157,6 +168,7 @@ class _MyAppState extends State<MyApp> {
 
 
     }
+    FlutterNativeSplash.remove();
 
   }
 
@@ -237,6 +249,7 @@ class _MyAppState extends State<MyApp> {
     getToken().then((value) {
 
     });
+
 
   }
 

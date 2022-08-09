@@ -49,13 +49,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
 
                 initialOptions: InAppWebViewGroupOptions(
-                  crossPlatform: InAppWebViewOptions(
-
-
-                    preferredContentMode: UserPreferredContentMode.MOBILE,
-
-                  ),
-                ),
+                    crossPlatform: InAppWebViewOptions(
+                      mediaPlaybackRequiresUserGesture: false,
+                      preferredContentMode: UserPreferredContentMode.MOBILE,
+                    ),
+                    android: AndroidInAppWebViewOptions(
+                      useHybridComposition: true,
+                    ),
+                    ios: IOSInAppWebViewOptions(
+                      allowsInlineMediaPlayback: true,
+                    )),
                 onWebViewCreated: (InAppWebViewController controller) {
                   webView = controller;
 

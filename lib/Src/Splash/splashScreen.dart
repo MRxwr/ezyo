@@ -97,23 +97,15 @@ class _SplashScreenState extends State<SplashScreen> {
           height: Helper.setHeight(context),
           width: Helper.setWidth(context),
           child: ex
-            ==""?Container(
+            ==""?
+
+          Container(
             height: Helper.setHeight(context),
             width: Helper.setWidth(context),
-            color: Colors.white,
-            child: Center(
-
-              child: SizedBox(
-                height:500.w,
-                width:300.w,
-                child: Image.asset(
-
-                  "assets/images/ezyo_new.png",
-                  fit: BoxFit.fill,
-
-
-
-                ),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/splash.png"),
+                fit: BoxFit.fill,
               ),
             ),
           ):

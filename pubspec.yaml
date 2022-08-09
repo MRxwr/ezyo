@@ -67,13 +67,17 @@ dependencies:
 
 
 
+
   grouped_list: ^4.2.0
 
-  flutter_facebook_login: ^3.0.0
+  flutter_facebook_auth: ^4.3.4
   flutter_webview_plugin: ^0.4.0
   group_radio_button: ^1.2.0
   google_maps_flutter: ^2.1.2
   syncfusion_flutter_datepicker: ^19.4.55
+  eraser: ^2.0.0
+  flutter_native_splash: ^2.1.1
+
 
   overlay_support: ^1.2.1
   flutter_local_notifications: ^9.4.0
@@ -115,6 +119,12 @@ flutter_icons:
   ios: true
   image_path: "assets/images/splash.jpg"
   remove_alpha_ios: true
+flutter_native_splash:
+  background_image: "assets/images/splash.png"
+  fullscreen: true
+  android: true
+  ios: true
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

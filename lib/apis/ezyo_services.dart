@@ -2,6 +2,8 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'package:ezyo/Models/DeleteAccountModel.dart';
+import 'package:ezyo/Models/HideModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 import 'package:ezyo/Models/add_address_model.dart';
@@ -296,6 +298,26 @@ class EzyoServices{
     return homeModel;
 
   }
+  Future<HideModel> hide() async{
+    HideModel hideModel;
+    var dio = Dio();
+    // dio.options.headers["ezyocreate"] = "CreateEZYo";
+
+    print(TAG_BASE_URL + "?action=hide");
+    var response = await dio.get(TAG_BASE_URL + "?action=hide");
+
+    if (response.statusCode == 200) {
+
+
+
+
+      hideModel =
+          HideModel.fromJson(Map<String, dynamic>.from(response.data));
+    }
+
+    return hideModel;
+
+  }
   Future<dynamic> loginSocial(String token) async{
     var resp ;
     var dio = Dio();
@@ -342,6 +364,31 @@ class EzyoServices{
 
       profileModel =
           ProfileModel.fromJson(Map<String, dynamic>.from(response.data));
+    }
+
+    return profileModel;
+
+  }
+  Future<DeleteAccountModel> deleteAccount(String id) async{
+    DeleteAccountModel profileModel;
+    var dio = Dio();
+    // dio.options.headers["ezyocreate"] = "CreateEZYo";
+    dio.options.headers['content-Type'] = 'multipart/form-data';
+    dio.options.headers['ezyocreate'] = "CreateEZYo";
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String language = sharedPreferences.getString(LANG_CODE)??"en";
+    Map<String,String>map = Map();
+    map['userId']= id;
+    FormData formData = FormData.fromMap(map);
+    var response = await dio.post(TAG_BASE_URL + "?action=user&type=remove&lang=${language}",data: formData);
+
+    if (response.statusCode == 200) {
+
+
+
+
+      profileModel =
+          DeleteAccountModel.fromJson(Map<String, dynamic>.from(response.data));
     }
 
     return profileModel;

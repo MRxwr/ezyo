@@ -1,5 +1,7 @@
 <resources>
+    <string name="app_name">Ezyo</string>
     <string name="title_activity_maps">Map</string>
-    <string name="facebook_app_id">4415390108516567</string>
+   <string name="facebook_app_id">4415390108516567</string>
     <string name="fb_login_protocol_scheme">fb4415390108516567</string>
+    <string name="facebook_client_token">9f7556fe4e8f1b108c67f9f8f0571832</string>
 </resources>

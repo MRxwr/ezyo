@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:ezyo/Models/HideModel.dart';
 import 'package:ezyo/Src/SignUp/ForgetPasswordScreen.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart'as Apple;
 import 'package:ezyo/Config/Colors.dart';
 import 'package:ezyo/Models/error_model.dart';
@@ -19,7 +21,7 @@ import 'package:ezyo/apis/ezyo_services.dart';
 import 'package:ezyo/localization/localization_methods.dart';
 import 'package:ezyo/providers/model_hud.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -40,6 +42,24 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = new TextEditingController();
   final TextEditingController _confirmpasswordController = new TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  Future<HideModel> hide()async{
+    EzyoServices ezyoServices = EzyoServices();
+    HideModel hideModel = await ezyoServices.hide();
+    return hideModel;
+
+  }
+  HideModel hideModel;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    hide().then((value) {
+      setState(() {
+        hideModel = value;
+      });
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,239 +75,257 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Scaffold(
           key: _scaffoldKey,
           resizeToAvoidBottomInset: false,
-          body: Stack(
-            alignment: Alignment.center,
-            children: [
-              Image.asset(
-                "assets/images/bg.png",
-                height: Helper.setHeight(context),
-                width: Helper.setWidth(context),
+          body: Container(
+            child: hideModel == null?
+            Container(
+              child: CircularProgressIndicator(
+
+
               ),
-              Container(
-                padding: EdgeInsets.all(20),
-                height: Helper.setHeight(context, height: 0.8),
-                width: Helper.setWidth(context, width: 0.8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30), color: Colors.white),
-                child: ClipRRect(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 20),
-                      Center(
-                          child: Text(
-                        "WELCOME TO EZYO",
-                        style: GoogleFonts.roboto(
-                            color: blackColor,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold),
-                      )),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      SizedBox(
-                        height: 40.h,
-                        child: TextField(
-                          textAlign: TextAlign.start,
-                          textCapitalization: TextCapitalization.words,
-                          keyboardType: TextInputType.emailAddress ,
+              alignment: AlignmentDirectional.center,
+            )
+                :
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Image.asset(
+                  "assets/images/bg.png",
+                  height: Helper.setHeight(context),
+                  width: Helper.setWidth(context),
+                ),
+                Container(
+                  padding: EdgeInsets.all(20),
+                  height: Helper.setHeight(context, height: 0.8),
+                  width: Helper.setWidth(context, width: 0.8),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30), color: Colors.white),
+                  child: ClipRRect(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 20),
+                        Center(
+                            child: Text(
+                          "WELCOME TO EZYO",
+                          style: GoogleFonts.roboto(
+                              color: blackColor,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold),
+                        )),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        SizedBox(
+                          height: 40.h,
+                          child: TextField(
+                            textAlign: TextAlign.start,
+                            textCapitalization: TextCapitalization.words,
+                            keyboardType: TextInputType.emailAddress ,
 
-                          textInputAction: TextInputAction.next,
-                          maxLines: 1,
-                          minLines: 1,
-                          controller: this._emailController,
-                          decoration: new InputDecoration(
-                            hintText: getTranslated(context, 'email'),
-                            hintStyle: TextStyle(
-                                color: Color(0xFF747474),
-                                fontSize: screenUtil.setSp(12),
-                                fontWeight: FontWeight.normal
-                            ),
+                            textInputAction: TextInputAction.next,
+                            maxLines: 1,
+                            minLines: 1,
+                            controller: this._emailController,
+                            decoration: new InputDecoration(
+                              hintText: getTranslated(context, 'email'),
+                              hintStyle: TextStyle(
+                                  color: Color(0xFF747474),
+                                  fontSize: screenUtil.setSp(12),
+                                  fontWeight: FontWeight.normal
+                              ),
 
-                            labelStyle: new TextStyle(color: const Color(0xFF424242)),
-                            enabledBorder:      OutlineInputBorder(
+                              labelStyle: new TextStyle(color: const Color(0xFF424242)),
+                              enabledBorder:      OutlineInputBorder(
 
-                                borderSide: BorderSide(
-                                    color: Color(0x22707070)
-                                    ,width: 1
-                                )
-                            ),
-                            focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color(0x22707070)
+                                      ,width: 1
+                                  )
+                              ),
+                              focusedBorder: OutlineInputBorder(
 
-                                borderSide: BorderSide(
-                                    color: Color(0x22707070)
-                                    ,width: 1
-                                )
-                            ),
-                            border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color(0x22707070)
+                                      ,width: 1
+                                  )
+                              ),
+                              border: OutlineInputBorder(
 
-                                borderSide: BorderSide(
-                                    color: Color(0xFFFF0000)
-                                    ,width: 1.w
-                                )
+                                  borderSide: BorderSide(
+                                      color: Color(0xFFFF0000)
+                                      ,width: 1.w
+                                  )
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: 40.h,
-                        child: TextField(
-                          obscureText: true,
-                          textAlign: TextAlign.start,
-                          textCapitalization: TextCapitalization.words,
-                          keyboardType: TextInputType.visiblePassword ,
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          height: 40.h,
+                          child: TextField(
+                            obscureText: true,
+                            textAlign: TextAlign.start,
+                            textCapitalization: TextCapitalization.words,
+                            keyboardType: TextInputType.visiblePassword ,
 
-                          textInputAction: TextInputAction.done,
-                          maxLines: 1,
-                          minLines: 1,
-                          controller: this._passwordController,
-                          decoration: new InputDecoration(
-                            hintText: getTranslated(context, 'password'),
-                            hintStyle: TextStyle(
-                                color: Color(0xFF747474),
-                                fontSize: screenUtil.setSp(12),
-                                fontWeight: FontWeight.normal
-                            ),
+                            textInputAction: TextInputAction.done,
+                            maxLines: 1,
+                            minLines: 1,
+                            controller: this._passwordController,
+                            decoration: new InputDecoration(
+                              hintText: getTranslated(context, 'password'),
+                              hintStyle: TextStyle(
+                                  color: Color(0xFF747474),
+                                  fontSize: screenUtil.setSp(12),
+                                  fontWeight: FontWeight.normal
+                              ),
 
-                            labelStyle: new TextStyle(color: const Color(0xFF424242)),
-                            enabledBorder:      OutlineInputBorder(
+                              labelStyle: new TextStyle(color: const Color(0xFF424242)),
+                              enabledBorder:      OutlineInputBorder(
 
-                                borderSide: BorderSide(
-                                    color: Color(0x22707070)
-                                    ,width: 1.w
-                                )
-                            ),
-                            focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color(0x22707070)
+                                      ,width: 1.w
+                                  )
+                              ),
+                              focusedBorder: OutlineInputBorder(
 
-                                borderSide: BorderSide(
-                                    color: Color(0x22707070)
-                                    ,width: 1.w
-                                )
-                            ),
-                            border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Color(0x22707070)
+                                      ,width: 1.w
+                                  )
+                              ),
+                              border: OutlineInputBorder(
 
-                                borderSide: BorderSide(
-                                    color: Color(0xFFFF0000)
-                                    ,width: 1.w
-                                )
+                                  borderSide: BorderSide(
+                                      color: Color(0xFFFF0000)
+                                      ,width: 1.w
+                                  )
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      CustomButton(
-                        isColored: true,
-                        onPressed: () {
-                          validate(context);
-                        },
-                        child: Center(
-                            child: Text(getTranslated(context, 'sign_in'),
-                                style: GoogleFonts.roboto(
-                                    fontSize: 15, color: textColorWhite))),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      CustomButton(
-                        isColored: false,
-                        onPressed: () {
-                          guest();
-                        },
-                        child: Center(
-                            child: Text(getTranslated(context, 'guest'),
-                                style: GoogleFonts.roboto(
-                                    fontSize: 15, color: primaryColor))),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Center(
-                        child: Text(
-                          getTranslated(context, 'social'),
-                          style:
-                              GoogleFonts.roboto(fontSize: 12, color: blackColor),
+                        SizedBox(
+                          height: 20,
                         ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          CustomSocialIcons(
-                            assetName: "assets/icons/google.png",
-                            bgColor: googleColor,
-                            onPressed: () {
-                              googleLogin(context);
-                            },
-                          ),
-                          CustomSocialIcons(
-                            assetName: "assets/icons/fb.png",
-                            bgColor: fbColor,
-                            onPressed: () {
-                              facebookLogin(context);
-                            },
-                          ),
+                        CustomButton(
+                          isColored: true,
+                          onPressed: () {
+                            validate(context);
+                          },
+                          child: Center(
+                              child: Text(getTranslated(context, 'sign_in'),
+                                  style: GoogleFonts.roboto(
+                                      fontSize: 15, color: textColorWhite))),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        CustomButton(
+                          isColored: false,
+                          onPressed: () {
+                            guest();
+                          },
+                          child: Center(
+                              child: Text(getTranslated(context, 'guest'),
+                                  style: GoogleFonts.roboto(
+                                      fontSize: 15, color: primaryColor))),
+                        ),
+                        Container(
+                          child:hideModel.data.hide=="1"?
+                          Container():Column(
+                            children: [
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Center(
+                                child: Text(
+                                  getTranslated(context, 'social'),
+                                  style:
+                                      GoogleFonts.roboto(fontSize: 12, color: blackColor),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  CustomSocialIcons(
+                                    assetName: "assets/icons/google.png",
+                                    bgColor: googleColor,
+                                    onPressed: () {
+                                      googleLogin(context);
+                                    },
+                                  ),
+                                  CustomSocialIcons(
+                                    assetName: "assets/icons/fb.png",
+                                    bgColor: fbColor,
+                                    onPressed: () {
+                                      facebookLogin(context);
+                                    },
+                                  ),
 
 
-                        ],
-                      ),
-                      Container(
-                        child: Platform.isIOS?
-                        Column(
-                          children: [
-                            SizedBox(height: 20,),
-                            Container(         padding:  EdgeInsets.symmetric(horizontal: 20.h),
-                                child: Apple.AppleSignInButton(
-                                  onPressed: logIn,
-                                  style: Apple.ButtonStyle.black,
-                                  type: Apple.ButtonType.signIn,
-                                )),
-                          ],
-                        ):Container(),
-                      ),
+                                ],
+                              ),
+                              Container(
+                                child: Platform.isIOS?
+                                Column(
+                                  children: [
+                                    SizedBox(height: 20,),
+                                    Container(         padding:  EdgeInsets.symmetric(horizontal: 20.h),
+                                        child: Apple.AppleSignInButton(
+                                          onPressed: logIn,
+                                          style: Apple.ButtonStyle.black,
+                                          type: Apple.ButtonType.signIn,
+                                        )),
+                                  ],
+                                ):Container(),
+                              ),
+                            ],
+                          ),
+                        ),
 
-                      SizedBox(
-                        height: 20,
-                      ),
-                      GestureDetector(
-                        onTap: () => Navigator.push(
-                            context,
-                            (MaterialPageRoute(
-                                builder: (context) => SignUpScreen(email: "",name: "",tokenId: "",loginType: "0",)))),
-                        child: Center(
-                          child: Text(
-                           getTranslated(context, 'sign_up'),
-                            style: GoogleFonts.roboto(
-                                fontSize: 15, color: primaryColor),
-                          ),
+                        SizedBox(
+                          height: 20,
                         ),
-                      ), SizedBox(
-                        height: 20,
-                      ),GestureDetector(
-                        onTap: () => Navigator.push(
-                            context,
-                            (MaterialPageRoute(
-                                builder: (context) => ForgetPasswordScreen()))),
-                        child: Center(
-                          child: Text(
-                            getTranslated(context, 'forget_password'),
-                            style: GoogleFonts.roboto(
-                                fontSize: 15, color: primaryColor),
+                        GestureDetector(
+                          onTap: () => Navigator.push(
+                              context,
+                              (MaterialPageRoute(
+                                  builder: (context) => SignUpScreen(email: "",name: "",tokenId: "",loginType: "0",)))),
+                          child: Center(
+                            child: Text(
+                             getTranslated(context, 'sign_up'),
+                              style: GoogleFonts.roboto(
+                                  fontSize: 15, color: primaryColor),
+                            ),
                           ),
-                        ),
-                      )
-                    ],
+                        ), SizedBox(
+                          height: 20,
+                        ),GestureDetector(
+                          onTap: () => Navigator.push(
+                              context,
+                              (MaterialPageRoute(
+                                  builder: (context) => ForgetPasswordScreen()))),
+                          child: Center(
+                            child: Text(
+                              getTranslated(context, 'forget_password'),
+                              style: GoogleFonts.roboto(
+                                  fontSize: 15, color: primaryColor),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -362,38 +400,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
   }
   void facebookLogin(BuildContext context) async {
-    final facebookLogin = FacebookLogin();
-    facebookLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
-    final result = await facebookLogin.logIn(['email']);
-    switch (result.status) {
-      case FacebookLoginStatus.loggedIn:
-        final token = result.accessToken.token;
 
-
+    final result =  await FacebookAuth.instance.login();
+    if (result.status == LoginStatus.success) {
+      final userData = await FacebookAuth.instance.getUserData();
+      if (userData.isNotEmpty) {
+        String name = userData['name'];
+        String email = userData['email'];
+        String socialId = userData['id'];
         final modelHud = Provider.of<ModelHud>(context,listen: false);
         modelHud.changeIsLoading(true);
-        final graphResponse = await http.get(
-            Uri.parse('https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${token}') );
-        final profile = json.decode(graphResponse.body);
-        String name = profile['name'];
-        String email = profile['email'];
-        String socialId = profile['id'];
-        // EzyoServices ezyoServices = EzyoServices();
-        // LoginSocialModel  loginSocialModel = await ezyoServices.loginSocial(socialId);
-        // modelHud.changeIsLoading(false);
-        // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-        // sharedPreferences.setString("id", loginSocialModel.data.id);
-        // sharedPreferences.setBool("isLoggedIn", true);
-        //
-        // sharedPreferences.setString('email',email);
-        // sharedPreferences.setString('password', '');
-        // sharedPreferences.setBool('isUser', true);
-        // Navigator.pushReplacement(
-        //     context,
-        //     MaterialPageRoute(builder: (context) => Home()));
-        //
-
-
         modelHud.changeIsLoading(true);
         EzyoServices ezyoServices = EzyoServices();
         Map<String, dynamic>   response = await ezyoServices.loginSocial(socialId);
@@ -417,21 +433,18 @@ class _LoginScreenState extends State<LoginScreen> {
           _scaffoldKey.currentState.showSnackBar(
               SnackBar(content: Text(errorModel.data.msg)));
           Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SignUpScreen(email: email,name: name,tokenId: socialId,loginType: "1",)),);
+            context,
+            MaterialPageRoute(builder: (context) => SignUpScreen(email: email,name: name,tokenId: socialId,loginType: "1",)),);
         }
 
 
-        break;
-      case FacebookLoginStatus.cancelledByUser:
-
-        break;
-      case FacebookLoginStatus.error:
-
-        break;
+      }
     }
 
   }
+
+
+
   void guest() async{
     final modelHud = Provider.of<ModelHud>(context,listen: false);
     modelHud.changeIsLoading(true);

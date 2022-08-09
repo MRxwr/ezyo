@@ -16,9 +16,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sweetalert/sweetalert.dart';
+
+import '../../utilities/constants.dart';
 
 class ProfileScreen extends StatefulWidget {
-  GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
+
    ProfileScreen({Key key}) : super(key: key);
 
   @override
@@ -33,6 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _emailController = new TextEditingController();
   final TextEditingController _phoneController = new TextEditingController();
   ProfileModel profileModel;
+  GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
   @override
   void initState() {
     // TODO: implement initState
@@ -80,7 +84,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           appBar: customAppBar(
               appBarTitle: getTranslated(context, 'profile'), isLeading: true, context: context),
           body: Form(
-            key: widget._globalKey,
+            key: _globalKey,
             child: Container(
               margin: EdgeInsets.all(40),
               child: profileModel == null?
@@ -270,11 +274,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void validate(BuildContext context,String id) async {
 
-    if(widget._globalKey.currentState.validate()) {
+    if(_globalKey.currentState.validate()) {
 
       String userName = _nameController.text;
-      if(userName != name){
-        widget._globalKey.currentState.save();
+
+        _globalKey.currentState.save();
         final modelHud = Provider.of<ModelHud>(context, listen: false);
         modelHud.changeIsLoading(true);
         EzyoServices ezyoServices = EzyoServices();
@@ -289,21 +293,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
           sharedPreferences.setString("name", name);
           sharedPreferences.setString("email", email);
           sharedPreferences.setString("phone", _phoneController.text);
-          _scaffoldKey.currentState.showSnackBar(
-              SnackBar(content: Text(updateProfileModel.status)));
+          SweetAlert.show(context,
+              title: getTranslated(context, 'successful'),
+              subtitle: getTranslated(context, updateProfileModel.status),
+
+              showCancelButton: false,
+              confirmButtonColor: kMainColor,
+              confirmButtonText: getTranslated(context, 'ok_string'),
+              style: SweetAlertStyle.success,
+              onPress: (bool isConfirm){
+                Navigator.pop(context,true);
+
+
+
+                return true;
+              });
+
 
 
 
         }else{
           ErrorModel errorModel = ErrorModel.fromJson(response);
-          _scaffoldKey.currentState.showSnackBar(
-              SnackBar(content: Text(errorModel.data.msg)));
+          SweetAlert.show(context,
+              title: getTranslated(context, 'fail'),
+              subtitle: getTranslated(context, errorModel.data.msg),
+              showCancelButton: false,
+              confirmButtonColor: Color(0xFFFF0000),
+              confirmButtonText: getTranslated(context, 'ok_string'),
+              style: SweetAlertStyle.error,
+              onPress: (bool isConfirm) {
+
+
+
+
+                Navigator.pop(context);
+                return true;
+              });
+
         }
 
 
-      }else{
-        Scaffold.of(context).showSnackBar(SnackBar(content: Text("No Data Changed")));
-      }
+
 
 
     }

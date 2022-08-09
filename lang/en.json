@@ -119,5 +119,7 @@
   "pick_time": "Pick a delivery Time",
   "pick": "Pick Time",
   "pick_date": "Pick Date",
-  "complain": "Complain"
+  "complain": "Complain",
+  "delete_account": "Delete My Account",
+  "Are_u_sure": "Are You Want to Delete Account?"
 }
