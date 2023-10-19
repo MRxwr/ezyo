@@ -144,8 +144,8 @@ if( isset($_GET["type"]) && !empty($_GET["type"]) ){
 			'CustomerMobile' => (string)substr($data["mobile"],0,11),
 			'CustomerEmail' => $email,
 			'invoiceValue' => $totalPrice,
-			'CallBackUrl' => 'https://createkwservers.com/ezyo/request/index.php?page=success',
-			'ErrorUrl' => 'https://createkwservers.com/ezyo/request/index.php?page=failure',
+			'CallBackUrl' => 'https://ezyokw.com/request/index.php?page=success',
+			'ErrorUrl' => 'https://ezyokw.com/request/index.php?page=failure',
 			'extraMerchantsData' => $extraMerchantsData
 			];
 			
@@ -163,7 +163,7 @@ if( isset($_GET["type"]) && !empty($_GET["type"]) ){
 		
 		if ( isset($RealPaymentMethod) ){
 			$data["paymentMethod"] == '3';
-			$url = 'http://createkwservers.com/ezyo/request/index.php?page=success?orderId='.$data["orderId"];
+			$url = 'https://ezyokw.com/request/index.php?page=success?orderId='.$data["orderId"];
 		}
 		
 		//print_r($data = json_encode($data));
