@@ -99,7 +99,7 @@ if ( isset($_GET["type"]) && !empty($_GET["type"]) ){
 			updateDB('customers',$data," `email` LIKE '{$_POST["email"]}'");
 			$curl = curl_init();
 			curl_setopt_array($curl, array(
-			  CURLOPT_URL => 'myid.createkwservers.com/api/v1/send/notify',
+			  CURLOPT_URL => 'https://createid.link/api/v1/send/notify',
 			  CURLOPT_RETURNTRANSFER => true,
 			  CURLOPT_ENCODING => '',
 			  CURLOPT_MAXREDIRS => 10,
@@ -107,7 +107,12 @@ if ( isset($_GET["type"]) && !empty($_GET["type"]) ){
 			  CURLOPT_FOLLOWLOCATION => true,
 			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			  CURLOPT_CUSTOMREQUEST => 'POST',
-			  CURLOPT_POSTFIELDS => array('site' => '- EZYO','subject' => 'New Password','body' => 'Your new password is: '.$random.'<br><br>(Note: Please change your passowrd as soon as you login in app.)','from_email' => 'noreply@ezyo.com','to_email' => $_POST["email"]),
+			  CURLOPT_POSTFIELDS => array(
+				'site' => '- EZYO',
+				'subject' => 'New Password',
+				'body' => 'Your new password is: '.$random.'<br><br>(Note: Please change your passowrd as soon as you login in app.)',
+				'from_email' => 'noreply@ezyokw.com',
+				'to_email' => $_POST["email"]),
 			));
 			$response = curl_exec($curl);
 			curl_close($curl);
