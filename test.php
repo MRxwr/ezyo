@@ -13,9 +13,9 @@ $html = '<li class="movieItem">
     </a>
 </li>';
 
-// Create a DOMDocument
-$dom = new DOMDocument();
-@$dom->loadHTML($html);
+// Create a DOMDocument with specified character encoding
+$dom = new DOMDocument('1.0', 'UTF-8');
+@$dom->loadHTML('<?xml encoding="UTF-8">' . $html);
 
 // Create a DOMXPath object
 $xpath = new DOMXPath($dom);
@@ -43,7 +43,7 @@ foreach ($movieItems as $movieItem) {
 }
 
 // Convert the array to JSON
-$jsonData = json_encode($data, JSON_PRETTY_PRINT);
+$jsonData = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 // Output the JSON
 echo $jsonData;
