@@ -1,17 +1,6 @@
 <?php
 
-$html = '<li class="movieItem">
-    <a href="https://egydead.space/episode/%d8%a7%d9%86%d9%85%d9%8a-%d8%a7%d9%84%d9%85%d8%ad%d9%82%d9%82-%d9%83%d9%88%d9%86%d8%a7%d9%86-detective-conan-%d8%a7%d9%84%d8%ad%d9%84%d9%82%d8%a9-1078-%d9%85%d8%aa%d8%b1%d8%ac%d9%85%d8%a9/" title="انمي المحقق كونان Detective Conan الحلقة 1078 مترجمة">
-        <img src="https://egydead.space/wp-content/uploads/2021/01/انمي-Detective-Conan-الحلقة-1000-217x280.jpg">
-        <h1 class="BottomTitle">انمي المحقق كونان Detective Conan الحلقة 1078 مترجمة</h1>
-        <span class="cat_name">مسلسلات انمي</span>
-        <span class="number_episode">
-            <b>حلقه</b>
-            <em>1078</em>
-        </span>
-        <i class="fi fi-play"></i>
-    </a>
-</li>';
+$html = file_get_contents("https://egydead.space/?s=%D9%83%D9%88%D9%86%D8%A7%D9%86");
 
 // Create a DOMDocument with specified character encoding
 $dom = new DOMDocument('1.0', 'UTF-8');
