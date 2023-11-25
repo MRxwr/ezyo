@@ -17,7 +17,7 @@ curl_setopt_array($curl, array(
     'User-Agent:PostmanRuntime/7.34.0',
     'Accept:*/*',
     'Accept-Encoding:gzip, deflate, br',
-    'Connection:keep-alive',
+    'Connection:keep-alive'
     ),
 ));
 $response = curl_exec($curl);
