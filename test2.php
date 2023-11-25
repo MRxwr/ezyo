@@ -15,7 +15,7 @@ curl_setopt_array($curl, array(
 ));
 $response = curl_exec($curl);
 curl_close($curl);
-$html = $response;
+var_dump($html = $response);
 
 // Create a DOMDocument with specified character encoding
 $dom = new DOMDocument('1.0', 'UTF-8');
