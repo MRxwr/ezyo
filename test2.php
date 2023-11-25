@@ -11,7 +11,7 @@ curl_setopt_array($curl, array(
   CURLOPT_CUSTOMREQUEST => 'GET',
   CURLOPT_HTTPHEADER => array(
     'X-Requested-With: XMLHttpRequest'
-  ),
+  ), 
 ));
 $response = curl_exec($curl);
 curl_close($curl);
