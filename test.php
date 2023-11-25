@@ -20,9 +20,9 @@ $response = curl_exec($curl);
 curl_close($curl);
 $html = $response;
 
-// Create a DOMDocument
-$dom = new DOMDocument();
-@$dom->loadHTML($html);
+// Create a DOMDocument with specified character encoding
+$dom = new DOMDocument('1.0', 'UTF-8');
+@$dom->loadHTML('<?xml encoding="UTF-8">' . $html);
 
 // Create a DOMXPath object
 $xpath = new DOMXPath($dom);
