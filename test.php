@@ -1,8 +1,8 @@
 <?php
-
+$_GET["s"] = ( isset($_GET["s"]) && !empty($_GET["s"])) ? $_GET["s"] : "" ;
 $curl = curl_init();
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://ww.tuktukcima.com/wp-content/themes/Elshaikh/Inc/Ajax/Searching.php',
+  CURLOPT_URL => "https://ww.tuktukcima.com/?s={$_GET["s"]}",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -28,7 +28,7 @@ $dom = new DOMDocument('1.0', 'UTF-8');
 $xpath = new DOMXPath($dom);
 
 // Query the HTML to extract data
-$items = $xpath->query('//ul/li/a');
+$items = $xpath->query('//div[@class="Block--Item"]/a');
 
 // Check if items are found
 if ($items->length > 0) {
@@ -37,11 +37,11 @@ if ($items->length > 0) {
     // Loop through each item
     foreach ($items as $item) {
         $jsonData = [
-            'item' => [
-                'href' => $item->getAttribute('href'),
-                'icon' => $xpath->evaluate('string(i/@class)', $item),
-                'text' => $xpath->evaluate('string(span)', $item),
-            ]
+            'href' => $item->getAttribute('href'),
+            'title' => $item->getAttribute('title'),
+            'image' => $xpath->evaluate('string(div/img/@src)', $item),
+            'genres' => $xpath->evaluate('array(//ul[@class="Genres"]/li)', $item),
+            'episodeTitle' => $xpath->evaluate('string(div[@class="Block--Info"]/h3)', $item),
         ];
 
         // Add the JSON data to the array
