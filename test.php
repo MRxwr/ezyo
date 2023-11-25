@@ -28,20 +28,28 @@ $dom = new DOMDocument('1.0', 'UTF-8');
 $xpath = new DOMXPath($dom);
 
 // Query the HTML to extract data
-$item = $xpath->query('//li/a')->item(0);
+$items = $xpath->query('//ul/li/a');
 
-// Check if an item is found
-if ($item) {
-    $jsonData = [
-        'item' => [
-            'href' => $item->getAttribute('href'),
-            'icon' => $xpath->evaluate('string(i/@class)', $item),
-            'text' => $xpath->evaluate('string(span)', $item),
-        ]
-    ];
+// Check if items are found
+if ($items->length > 0) {
+    $data = [];
 
-    // Output the JSON
-    echo json_encode($jsonData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    // Loop through each item
+    foreach ($items as $item) {
+        $jsonData = [
+            'item' => [
+                'href' => $item->getAttribute('href'),
+                'icon' => $xpath->evaluate('string(i/@class)', $item),
+                'text' => $xpath->evaluate('string(span)', $item),
+            ]
+        ];
+
+        // Add the JSON data to the array
+        $data[] = $jsonData;
+    }
+
+    // Output the JSON array
+    echo json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 } else {
-    echo 'Error: Item not found.';
+    echo 'Error: Items not found.';
 }
