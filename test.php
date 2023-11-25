@@ -1,7 +1,7 @@
 <?php
     $curl = curl_init();
     curl_setopt_array($curl, array(
-    CURLOPT_URL => 'https://egydead.space/?s=%D9%83%D9%88%D9%86%D8%A7%D9%86',
+    CURLOPT_URL => 'https://www.youtube.com/',
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => '',
     CURLOPT_MAXREDIRS => 10,
