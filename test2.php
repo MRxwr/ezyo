@@ -1,21 +1,5 @@
 <?php
-$curl = curl_init();
-curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://ww.tuktukcima.com/%D8%A7%D9%86%D9%85%D9%8A-%D8%A7%D9%84%D9%85%D8%AD%D9%82%D9%82-%D9%83%D9%88%D9%86%D8%A7%D9%86-detective-conan-%D8%A7%D9%84%D8%AD%D9%84%D9%82%D8%A9-1100-%D9%85%D8%AA%D8%B1%D8%AC%D9%85%D8%A9/watch/',
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'GET',
-  CURLOPT_HTTPHEADER => array(
-    'X-Requested-With: XMLHttpRequest'
-  ), 
-));
-$response = curl_exec($curl);
-curl_close($curl);
-var_dump($html = $response);
+var_dump($html = file_get_contents("https://ww.tuktukcima.com/%D8%A7%D9%86%D9%85%D9%8A-%D8%A7%D9%84%D9%85%D8%AD%D9%82%D9%82-%D9%83%D9%88%D9%86%D8%A7%D9%86-detective-conan-%D8%A7%D9%84%D8%AD%D9%84%D9%82%D8%A9-1100-%D9%85%D8%AA%D8%B1%D8%AC%D9%85%D8%A9/watch/"));
 
 // Create a DOMDocument with specified character encoding
 $dom = new DOMDocument('1.0', 'UTF-8');
