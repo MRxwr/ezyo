@@ -36,11 +36,18 @@ if ($items->length > 0) {
 
     // Loop through each item
     foreach ($items as $item) {
+        // Extract genres separately
+        $genres = [];
+        $genreNodes = $xpath->query('//ul[@class="Genres"]/li', $item);
+        foreach ($genreNodes as $genreNode) {
+            $genres[] = $genreNode->nodeValue;
+        }
+
         $jsonData = [
             'href' => $item->getAttribute('href'),
             'title' => $item->getAttribute('title'),
             'image' => $xpath->evaluate('string(div/img/@src)', $item),
-            'genres' => $xpath->evaluate('array(//ul[@class="Genres"]/li)', $item),
+            'genres' => $genres,
             'episodeTitle' => $xpath->evaluate('string(div[@class="Block--Info"]/h3)', $item),
         ];
 
