@@ -13,11 +13,7 @@ curl_setopt_array($curl, array(
   CURLOPT_POSTFIELDS => array('search' => 'Detective Conan'),
   CURLOPT_HTTPHEADER => array(
     'X-Requested-With: XMLHttpRequest',
-    'Content-Type:multipart/form-data',
-    'User-Agent:PostmanRuntime/7.34.0',
-    'Accept:*/*',
-    'Accept-Encoding:gzip, deflate, br',
-    'Connection:keep-alive'
+    'Content-Type:multipart/form-data'
     ),
 ));
 $response = curl_exec($curl);
