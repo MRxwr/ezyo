@@ -36,9 +36,9 @@ if ($items->length > 0) {
 
     // Loop through each item
     foreach ($items as $item) {
-        // Extract genres separately
+        // Extract genres separately within each Block--Item
         $genres = [];
-        $genreNodes = $xpath->query('//ul[@class="Genres"]/li', $item);
+        $genreNodes = $xpath->query('.//ul[@class="Genres"]/li', $item);
         foreach ($genreNodes as $genreNode) {
             $genres[] = $genreNode->nodeValue;
         }
