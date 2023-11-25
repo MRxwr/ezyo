@@ -2,7 +2,7 @@
 
 $curl = curl_init();
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://egydead.space/wp-content/themes/egydeadc-taq/Ajax/live-search.php',
+  CURLOPT_URL => 'https://ww.tuktukcima.com/wp-content/themes/Elshaikh/Inc/Ajax/Searching.php',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -28,22 +28,20 @@ $dom = new DOMDocument();
 $xpath = new DOMXPath($dom);
 
 // Query the HTML to extract data
-$liveItems = $xpath->query('//div[@class="liveItem"]');
-$data = [];
+$item = $xpath->query('//li/a')->item(0);
 
-// Loop through each liveItem
-foreach ($liveItems as $liveItem) {
+// Check if an item is found
+if ($item) {
     $jsonData = [
-        'liveItem' => [
-            'href' => $xpath->evaluate('string(a/@href)', $liveItem),
-            'imgSrc' => $xpath->evaluate('string(a/img/@src)', $liveItem),
-            'title' => $xpath->evaluate('string(a/h3)', $liveItem),
+        'item' => [
+            'href' => $item->getAttribute('href'),
+            'icon' => $xpath->evaluate('string(i/@class)', $item),
+            'text' => $xpath->evaluate('string(span)', $item),
         ]
     ];
 
-    // Add the JSON data to the array
-    $data[] = $jsonData;
+    // Output the JSON
+    echo json_encode($jsonData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+} else {
+    echo 'Error: Item not found.';
 }
-
-// Output the JSON array
-echo json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
