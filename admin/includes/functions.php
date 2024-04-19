@@ -1,4 +1,30 @@
 <?php
+function selectDBUpdated($table, $where){
+    GLOBAL $dbconnect;
+    $check = [';', '"'];
+    $where = str_replace($check, "", $where);
+    $sql = "SELECT * FROM `{$table}`";
+    if (!empty($where)) {
+        $sql .= " WHERE {$where}";
+    }
+    if ($stmt = $dbconnect->prepare($sql)) {
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $array = array();
+        while ($row = $result->fetch_assoc()) {
+            $array[] = $row;
+        }
+        if (isset($array) && is_array($array)) {
+            return $array;
+        } else {
+            return 0;
+        }
+    } else {
+        $error = array("msg" => "select table error");
+        return outputError($error);
+    }
+}
+
 function selectDashDB($select,$table, $where){
 	GLOBAL $dbconnect;
 	GLOBAL $date;

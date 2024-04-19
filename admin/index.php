@@ -3,12 +3,12 @@
 require_once('includes/config.php');
 
 // checking login
-if ( isset($_COOKIE["ezyoCreate"]) ){
+if ( isset($_COOKIE["ezyoCreate"]) && !empty($_COOKIE["ezyoCreate"]) ){
 	require_once('includes/checkLogin.php');
-}elseif( isset($_COOKIE["ezyoVCreate"]) ){
+}elseif( isset($_COOKIE["ezyoVCreate"]) && !empty($_COOKIE["ezyoVCreate"]) ){
 	require_once('includes/checkLoginVendor.php');
 }else{
-	header('LOCATION: pages/logout.php');
+	header('LOCATION: pages/logout.php');die();
 }
 
 // loading functions
