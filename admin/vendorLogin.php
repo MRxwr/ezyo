@@ -1,9 +1,9 @@
 <?php
+require_once('includes/config.php');
+require_once('includes/functions.php');
 if ( isset($_POST["username"]) && !empty($_POST["username"] )){
 	$check = [';','"',"'"];
 	$_POST = str_replace($check,"",$_POST);
-	require_once('includes/config.php');
-	require_once('includes/functions.php');
 	if ( $user = selectDBNew("vendors",[$_POST['username'],sha1($_POST['password'])],"`username` LIKE ? AND `password` LIKE ? AND `status` LIKE '0'","") ){
 		setcookie('ezyoVCreate', md5(time().$_POST['username']), time() + (3600*24*30) , '/');
 		$dataUpdate = array(
