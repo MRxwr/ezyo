@@ -15,7 +15,7 @@ if ( isset($_GET["type"]) && !empty($_GET["type"]) ){
 			}
 			echo outputError($error);die();
 		}
-		if($user = selectDB('vendors',"`username` LIKE '".$_POST["email"]."' AND `password` LIKE '".sha1($_POST["password"])."'")){
+		if($user = selectDB('vendors',"`email` LIKE '".$_POST["email"]."' AND `password` LIKE '".sha1($_POST["password"])."'")){
 			if( $user[0]["status"] == 1 ){
 				$error = array("msg"=>"Your account has been blocked. Please aconatct administration.");
 				if ( isset($_GET["lang"]) && $_GET["lang"] == "ar" ){
