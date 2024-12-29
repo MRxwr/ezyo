@@ -53,6 +53,8 @@ if ( isset($_GET["id"]) && !empty($_GET["id"]) ){
 		for ( $z = 0 ; $z < sizeof($categories); $z++ ){
 			if ( $items = selectDB('items',"`categoryId` LIKE '".$categories[$z]["id"]."' AND `status` LIKE '0'") ){
 				for( $i = 0 ; $i < sizeof($items) ; $i++ ){
+					$items[$i]["id"] = (STRING)$items[$i]["id"];
+					$items[$i]["categoryId"] = (STRING)$items[$i]["categoryId"];
 					for( $y = 0 ; $y < sizeof($unsetData) ; $y++ ){
 						unset($items[$i][$unsetData[$y]]);
 					}
