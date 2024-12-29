@@ -59,6 +59,7 @@ if( isset($_GET["tag"]) && !empty($_GET["tag"]) ){
 }
 for( $i = 0 ; $i < sizeof($vendors) ; $i++ ){
 	for( $y = 0 ; $y < sizeof($unsetData) ; $y++ ){
+		$vendors[$i]["id"] = (STRING)$vendors[$i]["id"];
 		unset($vendors[$i][$unsetData[$y]]);
 	}
 }
