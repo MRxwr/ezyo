@@ -127,6 +127,7 @@ if( isset($_GET["type"]) && !empty($_GET["type"]) ){
 			$RealPaymentMethod = 3;
 			$data["paymentMethod"] == '1';
 		}
+		$RealPaymentMethod = 3;
 		$data["paymentMethod"] == '3';
 		
 		$vendorDetails = selectDB('vendors',"`id` = '{$data["vendorId"]}'");
@@ -163,10 +164,10 @@ if( isset($_GET["type"]) && !empty($_GET["type"]) ){
 		}
 		*/
 		//print_r($paymentData);die();
-		$invoiceDetails = payment($paymentData);
+		/*$invoiceDetails = payment($paymentData);
 		$data["orderId"] = $invoiceDetails["id"];
-		$url = $invoiceDetails["url"];
-		
+		$url = $invoiceDetails["url"];*/
+		$data["orderId"] = rand(00000000,99999999);
 		if ( isset($RealPaymentMethod) ){
 			$data["paymentMethod"] == '3';
 			$url = 'https://ezyokw.com/request/index.php?page=success?orderId='.$data["orderId"];
