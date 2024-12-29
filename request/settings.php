@@ -2,15 +2,15 @@
 if ( isset($_GET["type"]) && !empty($_GET["type"]) ){
 	if ( $_GET["type"] == "list" ){
 		$settigns = selectDB('settings'," `id` LIKE '1'");
-		$response["version"] = $settigns[0]["version"];
-		$response["enTerms"] = $settigns[0]["enTerms"];
-		$response["arTerms"] = $settigns[0]["arTerms"];
-		$response["enPolicy"] = $settigns[0]["enPolicy"];
-		$response["arPolicy"] = $settigns[0]["arPolicy"];
+		$response["version"] = (STRING)$settigns[0]["version"];
+		$response["enTerms"] = (STRING)$settigns[0]["enTerms"];
+		$response["arTerms"] = (STRING)$settigns[0]["arTerms"];
+		$response["enPolicy"] = (STRING)$settigns[0]["enPolicy"];
+		$response["arPolicy"] = (STRING)$settigns[0]["arPolicy"];
 		$response["whatsapp"] = "96551365731";
 		if ( isset($_GET["customerId"]) && !empty($_GET["customerId"]) ){
 			$customer = selectDB('customers'," `id` LIKE '".$_GET["customerId"]."'");
-			$response["wallet"] = $customer[0]["wallet"];
+			$response["wallet"] = (STRING)$customer[0]["wallet"];
 		}else{
 			$response["wallet"] = "0";
 		}
@@ -29,8 +29,8 @@ if ( isset($_GET["type"]) && !empty($_GET["type"]) ){
 				}
 			}
 			$customer = selectDB('customers'," `id` LIKE '".$_GET["customerId"]."'");
-			$response["name"] = $customer[0]["name"];
-			$response["email"] = $customer[0]["email"];
+			$response["name"] = (STRING)$customer[0]["name"];
+			$response["email"] = (STRING)$customer[0]["email"];
 			echo outputData($response);
 		}else{
 			$error = array("msg" => 'please enter cutomer Id');
