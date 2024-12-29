@@ -29,11 +29,11 @@ if ( isset($_GET["customerId"]) && !empty($_GET["customerId"]) ){
 	}
 	$settings = selectDB('settings',"`id` LIKE '1'");
 	$response = [
-		"wallet" => $wallet,
-		"delivery" => $settings[0]["delivery"],
-		"service" => $settings[0]["services"],
+		"wallet" => (STRING)$wallet,
+		"delivery" => (STRING)$settings[0]["delivery"],
+		"service" => (STRING)$settings[0]["services"],
 		"total" => (string)(array_sum($price)+$settings[0]["services"]+ $settings[0]["delivery"]),
-		"voucher" => $voucherCode
+		"voucher" => (STRING)$voucherCode
 	];
 	echo outputData($response);
 }else{
