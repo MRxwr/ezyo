@@ -127,6 +127,7 @@ if( isset($_GET["type"]) && !empty($_GET["type"]) ){
 			$RealPaymentMethod = 3;
 			$data["paymentMethod"] == '1';
 		}
+		$data["paymentMethod"] == '3';
 		
 		$vendorDetails = selectDB('vendors',"`id` = '{$data["vendorId"]}'");
 		$extraMerchantsData = array(
