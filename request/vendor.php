@@ -7,6 +7,9 @@ if ( isset($_GET["id"]) && !empty($_GET["id"]) ){
 	}
 	
 	for( $i = 0 ; $i < sizeof($vendors) ; $i++ ){
+		$vendors[$i]["id"] = (STRING)$vendors[$i]["id"];
+		$vendors[$i]["is_new"] = (STRING)$vendors[$i]["is_new"];
+		$vendors[$i]["is_busy"] = (STRING)$vendors[$i]["is_busy"];
 		for( $y = 0 ; $y < sizeof($unsetData) ; $y++ ){
 			unset($vendors[$i][$unsetData[$y]]);
 		}

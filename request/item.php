@@ -2,7 +2,6 @@
 if ( isset($_GET["id"]) && !empty($_GET["id"]) ){
 	if ( $items = selectDB('items',"`id` LIKE '".$_GET["id"]."' AND `status` LIKE '0'") ){
 		for( $i = 0 ; $i < sizeof($items) ; $i++ ){
-			$items[$i]["id"] = (STRING)$items[$i]["id"];
 			for( $y = 0 ; $y < sizeof($unsetData) ; $y++ ){
 				unset($items[$i][$unsetData[$y]]);
 			}
