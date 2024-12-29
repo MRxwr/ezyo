@@ -8,6 +8,8 @@ if ( isset($_GET["type"]) ){
 					for( $y = 0 ; $y < sizeof($unsetData) ; $y++ ){
 						unset($address[$i][$unsetData[$y]]);
 					}
+					$keys = array_keys($address[$i]);
+					for( )
 				}
 				$response["address"] = $address;
 				echo outputData($response);
