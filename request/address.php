@@ -89,6 +89,7 @@ if ( isset($_GET["type"]) ){
 		}else{
 			$response["msg"] = "Please enter address Id";
 			echo outputError($response);die();
+			
 		}
 	}else{
 		$response["msg"] = "Wrong type, 'list' or 'add' or 'edit'";
