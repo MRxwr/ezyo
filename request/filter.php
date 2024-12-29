@@ -2,12 +2,14 @@
 //get tags
 $tags = selectDB('tags',"`status` LIKE '0'");
 for( $i = 0 ; $i < sizeof($tags) ; $i++ ){
+	$tags[$i]["id"] = (STRING)$tags[$i]["id"];
 	unset($tags[$i]["userId"],$tags[$i]["status"],$tags[$i]["date"]);
 }
 $response["tags"] = $tags;
 //get banners
 $banners = selectDB('banners',"`status` LIKE '0'");
 for( $i = 0 ; $i < sizeof($banners) ; $i++ ){
+	$banners[$i]["id"] = (STRING)$banners[$i]["id"];
 	for( $y = 0 ; $y < sizeof($unsetData) ; $y++ ){
 		unset($banners[$i][$unsetData[$y]]);
 	}
@@ -58,8 +60,8 @@ if( isset($_GET["tag"]) && !empty($_GET["tag"]) ){
 	$vendors = selectDB('vendors',"`status` LIKE '0'");
 }
 for( $i = 0 ; $i < sizeof($vendors) ; $i++ ){
+	$vendors[$i]["id"] = (STRING)$vendors[$i]["id"];
 	for( $y = 0 ; $y < sizeof($unsetData) ; $y++ ){
-		$vendors[$i]["id"] = (STRING)$vendors[$i]["id"];
 		unset($vendors[$i][$unsetData[$y]]);
 	}
 }
