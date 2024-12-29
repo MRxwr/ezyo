@@ -46,6 +46,11 @@ if( isset($_GET["type"]) && !empty($_GET["type"]) ){
 							$statusText = "";
 						}
 					}
+
+					$keys = array_keys($order[$i]);
+					for ( $j = 0 ; $j < sizeof($keys) ; $j++ ){
+						$order[$i][$keys[$j]] = (STRING)$order[$i][$keys[$j]];
+					}
 					
 					$response[$i]["order"]["id"] = $order[$i]["orderId"];
 					$response[$i]["order"]["date"] = $order[$i]["date"];
@@ -232,19 +237,19 @@ if( isset($_GET["type"]) && !empty($_GET["type"]) ){
 				}
 			}
 			
-			$response["orderId"] = $order[0]["orderId"];
-			$response["date"] = $order[0]["date"];
-			$response["payment"] = $paymentText;
-			$response["delivery"] = $order[0]["delivery"];
-			$response["service"] = $order[0]["service"];
+			$response["orderId"] = (string)$order[0]["orderId"];
+			$response["date"] = (string)$order[0]["date"];
+			$response["payment"] = (string)$paymentText;
+			$response["delivery"] = (string)$order[0]["delivery"];
+			$response["service"] = (string)$order[0]["service"];
 			$response["price"] = (string)($order[0]["price"]+$order[0]["service"]+$order[0]["delivery"]);
 			$response["status"] = $statusText;
-			$response["note"] = $order[0]["orderNote"];
-			$response["time"] = $order[0]["time"];
-			$response["deliveryDate"] = $order[0]["deliveryDate"];
+			$response["note"] = (string)$order[0]["orderNote"];
+			$response["time"] = (string)$order[0]["time"];
+			$response["deliveryDate"] = (string)$order[0]["deliveryDate"];
 			
 			$customer = selectDB('customers',"`id` LIKE '".$order[0]["customerId"]."'");
-			$response["customer"]["name"] = $customer[0]["name"];
+			$response["customer"]["name"] = (string)$customer[0]["name"];
 			
 			$address = selectDB('addresses',"`id` LIKE '".$order[0]["addressId"]."'");
 			unset($address[0]["id"]);
@@ -254,13 +259,13 @@ if( isset($_GET["type"]) && !empty($_GET["type"]) ){
 			$response["address"] = $address[0];
 			
 			$vendor = selectDB('vendors',"`id` LIKE '".$order[0]["vendorId"]."'");
-			$response["vendor"]["enTitle"] = $vendor[0]["enShop"];
-			$response["vendor"]["arTitle"] = $vendor[0]["arShop"];
-			$response["vendor"]["logo"] = $vendor[0]["logo"];
+			$response["vendor"]["enTitle"] = (string)$vendor[0]["enShop"];
+			$response["vendor"]["arTitle"] = (string)$vendor[0]["arShop"];
+			$response["vendor"]["logo"] = (string)$vendor[0]["logo"];
 			
 			if($voucher = selectDB('vouchers',"`id` LIKE '".$order[0]["voucherId"]."'")){
-				$response["voucher"]["code"] = $voucher[0]["code"];
-				$response["voucher"]["discount"] = $order[0]["voucherDiscount"];
+				$response["voucher"]["code"] = (string)$voucher[0]["code"];
+				$response["voucher"]["discount"] = (string)$order[0]["voucherDiscount"];
 			}else{
 				$response["voucher"]["code"] = "";
 				$response["voucher"]["discount"] = "";
@@ -269,12 +274,12 @@ if( isset($_GET["type"]) && !empty($_GET["type"]) ){
 			
 			for( $i=0 ; $i < sizeof($order) ; $i++){
 				$items = selectDB('items',"`id` LIKE '".$order[$i]["itemId"]."'");
-				$response["items"][$i]["arTitle"] = $items[0]["arTitle"];
-				$response["items"][$i]["enTitle"] = $items[0]["enTitle"];
-				$response["items"][$i]["quantity"] = $order[$i]["quantity"];
-				$response["items"][$i]["discount"] = $order[$i]["itemDiscount"];
-				$response["items"][$i]["price"] = $order[$i]["itemPrice"];
-				$response["items"][$i]["note"] = $order[$i]["itemNote"];
+				$response["items"][$i]["arTitle"] = (string)$items[0]["arTitle"];
+				$response["items"][$i]["enTitle"] = (string)$items[0]["enTitle"];
+				$response["items"][$i]["quantity"] = (string)$order[$i]["quantity"];
+				$response["items"][$i]["discount"] = (string)$order[$i]["itemDiscount"];
+				$response["items"][$i]["price"] = (string)$order[$i]["itemPrice"];
+				$response["items"][$i]["note"] = (string)$order[$i]["itemNote"];
 				if ( $images = selectDB('images',"`itemId` LIKE '".$order[$i]["itemId"]."' AND `status` = '0'")){
 					$response["items"][$i]["logo"] = $images[0]["imageurl"];
 				}
