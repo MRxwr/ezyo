@@ -39,6 +39,8 @@ if ( isset($_GET["id"]) && !empty($_GET["id"]) ){
 	
 	if ($categories = selectDB('categories',"`vendorId` LIKE '".$_GET["id"]."' AND `status` LIKE '0'") ){
 		for( $i = 0 ; $i < sizeof($categories) ; $i++ ){
+			$categories[$i]["id"] = (STRING)$categories[$i]["id"];
+			$categories[$i]["vendorId"] = (STRING)$categories[$i]["vendorId"];
 			for( $y = 0 ; $y < sizeof($unsetData) ; $y++ ){
 				unset($categories[$i][$unsetData[$y]]);
 			}
