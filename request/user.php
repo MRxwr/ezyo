@@ -232,7 +232,7 @@ if ( isset($_GET["type"]) && !empty($_GET["type"]) ){
 		$data["guest"] = 1;
 		if( insertDB('customers',$data) ){
 			if ( $user = selectDB('customers',"`email` LIKE '".$data["email"]."' AND `password` LIKE '".sha1('EZYo123')."'") ){
-				echo outputData(array('id'=>$user[0]["id"]));
+				echo outputData(array('id'=>(STRING)$user[0]["id"]));
 			}
 			if ( isset($_POST["deviceToken"]) && !empty($_POST["deviceToken"]) ){
 				if ($firebase = selectDB('firebase',"`customerId` LIKE '{$user[0]["id"]}'") ){
