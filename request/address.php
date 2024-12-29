@@ -9,7 +9,9 @@ if ( isset($_GET["type"]) ){
 						unset($address[$i][$unsetData[$y]]);
 					}
 					$keys = array_keys($address[$i]);
-					for( )
+					for( $z = 0; $z < sizeof($keys) ; $z++ ){
+						$address[$i][$keys[$z]] = (STRING)$address[$i][$keys[$z]];
+					}
 				}
 				$response["address"] = $address;
 				echo outputData($response);
@@ -31,6 +33,10 @@ if ( isset($_GET["type"]) ){
 					for( $i = 0 ; $i < sizeof($address) ; $i++ ){
 						for( $y = 0 ; $y < sizeof($unsetData) ; $y++ ){
 							unset($address[$i][$unsetData[$y]]);
+						}
+						$keys = array_keys($address[$i]);
+						for( $z = 0; $z < sizeof($keys) ; $z++ ){
+							$address[$i][$keys[$z]] = (STRING)$address[$i][$keys[$z]];
 						}
 					}
 					$response["address"] = $address[0];
@@ -61,6 +67,10 @@ if ( isset($_GET["type"]) ){
 					for( $i = 0 ; $i < sizeof($address) ; $i++ ){
 						for( $y = 0 ; $y < sizeof($unsetData) ; $y++ ){
 							unset($address[$i][$unsetData[$y]]);
+						}
+						$keys = array_keys($address[$i]);
+						for( $z = 0; $z < sizeof($keys) ; $z++ ){
+							$address[$i][$keys[$z]] = (STRING)$address[$i][$keys[$z]];
 						}
 					}
 					$response["address"] = $address[0];
