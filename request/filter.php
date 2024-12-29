@@ -61,6 +61,8 @@ if( isset($_GET["tag"]) && !empty($_GET["tag"]) ){
 }
 for( $i = 0 ; $i < sizeof($vendors) ; $i++ ){
 	$vendors[$i]["id"] = (STRING)$vendors[$i]["id"];
+	$vendors[$i]["is_new"] = (STRING)$vendors[$i]["is_new"];
+	$vendors[$i]["is_busy"] = (STRING)$vendors[$i]["is_busy"];
 	for( $y = 0 ; $y < sizeof($unsetData) ; $y++ ){
 		unset($vendors[$i][$unsetData[$y]]);
 	}
