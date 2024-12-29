@@ -7,12 +7,13 @@ if ( isset($_GET["id"]) && !empty($_GET["id"]) ){
 	}
 	
 	for( $i = 0 ; $i < sizeof($vendors) ; $i++ ){
-		$vendors[$i]["id"] = (STRING)$vendors[$i]["id"];
-		$vendors[$i]["is_new"] = (STRING)$vendors[$i]["is_new"];
-		$vendors[$i]["is_busy"] = (STRING)$vendors[$i]["is_busy"];
-		$vendors[$i]["time"] = (STRING)$vendors[$i]["time"];
+		// change all to string \\	
 		for( $y = 0 ; $y < sizeof($unsetData) ; $y++ ){
 			unset($vendors[$i][$unsetData[$y]]);
+		}
+		$keys = array_keys($vendors[$i]);
+		for( $y = 0 ; $y < sizeof($keys) ; $y++ ){
+			$vendors[$i][$keys[$y]] = (STRING)$vendors[$i][$keys[$y]];
 		}
 	}
 	$response["vendor"] = $vendors[0];
@@ -40,10 +41,12 @@ if ( isset($_GET["id"]) && !empty($_GET["id"]) ){
 	
 	if ($categories = selectDB('categories',"`vendorId` LIKE '".$_GET["id"]."' AND `status` LIKE '0'") ){
 		for( $i = 0 ; $i < sizeof($categories) ; $i++ ){
-			$categories[$i]["id"] = (STRING)$categories[$i]["id"];
-			$categories[$i]["vendorId"] = (STRING)$categories[$i]["vendorId"];
 			for( $y = 0 ; $y < sizeof($unsetData) ; $y++ ){
 				unset($categories[$i][$unsetData[$y]]);
+			}
+			$keys = array_keys($categories[$i]);
+			for( $y = 0 ; $y < sizeof($keys) ; $y++ ){
+				$categories[$i][$keys[$y]] = (STRING)$categories[$i][$keys[$y]];
 			}
 		}
 	}else{
@@ -54,8 +57,6 @@ if ( isset($_GET["id"]) && !empty($_GET["id"]) ){
 		for ( $z = 0 ; $z < sizeof($categories); $z++ ){
 			if ( $items = selectDB('items',"`categoryId` LIKE '".$categories[$z]["id"]."' AND `status` LIKE '0'") ){
 				for( $i = 0 ; $i < sizeof($items) ; $i++ ){
-					$items[$i]["id"] = (STRING)$items[$i]["id"];
-					$items[$i]["categoryId"] = (STRING)$items[$i]["categoryId"];
 					for( $y = 0 ; $y < sizeof($unsetData) ; $y++ ){
 						unset($items[$i][$unsetData[$y]]);
 					}
@@ -65,6 +66,10 @@ if ( isset($_GET["id"]) && !empty($_GET["id"]) ){
 						$items[$i]["finalPrice"] = "0";
 					}
 					$items[$i]["finalPrice"] = (string)$items[$i]["finalPrice"];
+					$keys = array_keys($items[$i]);
+					for( $y = 0 ; $y < sizeof($keys) ; $y++ ){
+						$items[$i][$keys[$y]] = (STRING)$items[$i][$keys[$y]];
+					}
 				}
 				$response["categories"][$z] = $categories[$z];
 				$response["categories"][$z]["items"] = $items;
